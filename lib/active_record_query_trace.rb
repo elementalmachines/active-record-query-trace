@@ -64,7 +64,11 @@ module ActiveRecordQueryTrace
       setup_backtrace_cleaner unless ActiveRecordQueryTrace.backtrace_cleaner
 
       trace = fully_formatted_trace # Memoize
-      debug(trace) unless trace.blank?
+      unless trace.blank?
+        trace.split(/\n/).each do |line|
+          debug(line)
+        end
+      end
     end
 
     attach_to :active_record
